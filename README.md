@@ -24,8 +24,9 @@ var similarity = require('music-similarity')
 
 // Get similarity using a list of scraping servers and a metadata object 
 var servers = ['http://test.de/scraping']
-var meta = {title: '...', artist: '...', album: '...', genre: '...'}
+var meta = {title: 'S.O.S.', artist: 'ABBA', album: 'The Albums', genre: 'Pop'}
 similarity(servers, meta, function (similar_tracks) {
   // similar_tracks is an array of metadata objects
+  console.log(similar_tracks)
 })
 ```
