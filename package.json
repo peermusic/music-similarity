@@ -1,0 +1,29 @@
+{
+  "name": "music-similarity",
+  "version": "0.1.0",
+  "description": "Module that provides similarity information for music tracks",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peermusic/music-similarity.git"
+  },
+  "keywords": [
+    "music",
+    "similarity"
+  ],
+  "author": "https://github.com/peermusic/",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peermusic/music-similarity/issues"
+  },
+  "homepage": "https://github.com/peermusic/music-similarity#readme",
+  "dependencies": {
+    "async": "^1.5.0",
+    "in-memory-storage": "git+https://github.com/peermusic/in-memory-storage.git",
+    "rusha": "0.8.*",
+    "xhr": "^2.2.0"
+  }
+}
