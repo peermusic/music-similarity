@@ -40,7 +40,7 @@ function _only (object, keys) {
   var clean = {}
   for (var i = 0; i !== keys.length; i++) {
     if (!object[keys[i]]) {
-      return
+      continue
     }
     clean[keys[i]] = object[keys[i]]
   }
@@ -52,12 +52,14 @@ function getSimilarTracks (servers, queries, callback, i, results) {
   i = i || 0
   results = results || []
   var query = queries[i]
-  var max_results = 1
+  var max_results = 20
 
+  console.log('Sending query:', query)
   requestSimilar(servers, query, function (request_results) {
     // Add the results to our results
     results = results.concat(request_results)
     results = _unique(results)
+    console.log(results.length + ' total results...')
 
     // Request until either we have no queries at the
     // server anymore or we reached the maximum results
