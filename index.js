@@ -29,9 +29,10 @@ function MusicSimilarity (servers, metadata, callback) {
 function possibleQueries (metadata) {
   var queries = []
   if (metadata.title) { queries.push(_only(metadata, ['title', 'album', 'artist'])) }
-  if (metadata.album) { queries.push(_only(metadata, ['album', 'artist'])) }
-  if (metadata.artist) { queries.push(_only(metadata, ['artist'])) }
-  if (metadata.genre) { queries.push(_only(metadata, ['genre'])) }
+  // FIXME temporary until the request format is fixed
+  // if (metadata.album) { queries.push(_only(metadata, ['album', 'artist'])) }
+  // if (metadata.artist) { queries.push(_only(metadata, ['artist'])) }
+  // if (metadata.genre) { queries.push(_only(metadata, ['genre'])) }
   return queries
 }
 
@@ -94,13 +95,8 @@ function requestSimilar (servers, metadata, callback) {
 
 // Request metadata from a single server
 function requestFromServer (server, metadata, callback) {
-  callback([{title: 'Honey, Honey', artist: 'ABBA', album: 'The Albums', genre: 'Pop'}])
-  return
-
-  // FIXME This code is theoretical until the scrapping server is done - but it should work! :)
-
   var request_object = {
-    url: server,
+    url: server + '/similarTrack',
     method: 'POST',
     body: JSON.stringify({payload: metadata}),
     headers: {'Content-Type': 'application/json'}
@@ -122,6 +118,11 @@ function requestFromServer (server, metadata, callback) {
       callback([])
       return false
     }
+
+    // FIXME temporary, mapping the bad result format to something usable
+    body = body.result.map(function (x) {
+      return {title: x.content, album: '???', artist: '???'}
+    })
 
     callback(body)
   })
