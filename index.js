@@ -102,7 +102,7 @@ function requestFromServer (server, metadata, callback) {
   var request_object = {
     url: server,
     method: 'POST',
-    json: {payload: metadata},
+    body: JSON.stringify({payload: metadata}),
     headers: {'Content-Type': 'application/json'}
   }
 
