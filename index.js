@@ -119,11 +119,6 @@ function requestFromServer (server, metadata, callback) {
       return false
     }
 
-    // FIXME temporary, mapping the bad result format to something usable
-    body = body.result.map(function (x) {
-      return {title: x.content, album: '???', artist: '???'}
-    })
-
     callback(body)
   })
 }
