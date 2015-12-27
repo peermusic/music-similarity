@@ -29,10 +29,9 @@ function MusicSimilarity (servers, metadata, callback) {
 function possibleQueries (metadata) {
   var queries = []
   if (metadata.title) { queries.push(_only(metadata, ['title', 'album', 'artist'])) }
-  // FIXME temporary until the request format is fixed
-  // if (metadata.album) { queries.push(_only(metadata, ['album', 'artist'])) }
-  // if (metadata.artist) { queries.push(_only(metadata, ['artist'])) }
-  // if (metadata.genre) { queries.push(_only(metadata, ['genre'])) }
+  if (metadata.album) { queries.push(_only(metadata, ['album', 'artist'])) }
+  if (metadata.artist) { queries.push(_only(metadata, ['artist'])) }
+  if (metadata.genre) { queries.push(_only(metadata, ['genre'])) }
   return queries
 }
 
