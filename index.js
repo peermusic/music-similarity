@@ -21,7 +21,9 @@ function MusicSimilarity (servers, metadata, callback) {
   // until we have a certain amount of results
   var queries = possibleQueries(metadata)
   getSimilarTracks(servers, queries, function (tracks) {
-    storage.set(hash, tracks)
+    if (tracks.length > 0) {
+      storage.set(hash, tracks)
+    }
     callback(tracks)
   })
 }
@@ -87,7 +89,7 @@ function requestSimilar (servers, metadata, callback) {
     requestFromServer(server, metadata, function (response) { c(null, response) })
   }, function (err, results) {
     if (err) throw err
-    results = results.reduce(function (x, y) { return x.concat(y) })
+    results = results.length > 0 ? results.reduce(function (x, y) { return x.concat(y) }) : results
     results = _unique(results)
     callback(results)
   })
