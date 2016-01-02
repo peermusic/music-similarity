@@ -23,7 +23,7 @@ For reference see the [Browserify Handbook](https://github.com/substack/browseri
 var similarity = require('music-similarity')
 
 // Get similarity using a list of scraping servers and a metadata object 
-var servers = ['http://test.de/scraping']
+var servers = [{url: 'http://test.de/scraping', key: '...', id: '...'}]
 var meta = {title: 'S.O.S.', artist: 'ABBA', album: 'The Albums', genre: 'Pop'}
 similarity(servers, meta, function (similar_tracks) {
   // similar_tracks is an array of metadata objects

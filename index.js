@@ -2,6 +2,7 @@ var storage = new (require('in-memory-storage'))()
 var rusha = new (require('rusha'))()
 var xhr = require('xhr')
 var async = require('async')
+var messaging = require('secure-client-server-messaging')
 
 module.exports = MusicSimilarity
 
@@ -94,10 +95,13 @@ function requestSimilar (servers, metadata, callback) {
 
 // Request metadata from a single server
 function requestFromServer (server, metadata, callback) {
+  var encryptedRequest = messaging.encrypt(metadata, server.key)
+  encryptedRequest.id = server.id
+
   var request_object = {
-    url: server + '/similarTrack',
+    url: server.url + '/similarTrack',
     method: 'POST',
-    body: JSON.stringify({payload: metadata}),
+    body: JSON.stringify(encryptedRequest),
     headers: {'Content-Type': 'application/json'}
   }
 
@@ -109,15 +113,7 @@ function requestFromServer (server, metadata, callback) {
       return
     }
 
-    // Error handling for bad server responses
-    try {
-      body = JSON.parse(body)
-    } catch (e) {
-      console.error('Error parsing metadata from scraping server (' + server + ')', metadata)
-      callback([])
-      return false
-    }
-
-    callback(body)
+    var payload = messaging.decrypt(JSON.parse(body), server.key)
+    callback(payload.result)
   })
 }
