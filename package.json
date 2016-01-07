@@ -26,5 +26,8 @@
     "rusha": "0.8.*",
     "secure-client-server-messaging": "git+https://github.com/peermusic/secure-client-server-messaging.git",
     "xhr": "^2.2.0"
+  },
+  "devDependencies": {
+    "standard": "^5.4.1"
   }
 }
