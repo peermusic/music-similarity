@@ -7,7 +7,14 @@ var messaging = require('secure-client-server-messaging')
 module.exports = MusicSimilarity
 
 // Provide similarity information for music files
-function MusicSimilarity (servers, metadata, callback) {
+function MusicSimilarity (servers, metadata, callback, similarTracks) {
+  if (servers === 'add') {
+    addSimilarity(metadata, similarTracks)
+    return callback(similarTracks)
+  }
+
+  if (servers === 'remove') return removeSimilarity(metadata)
+
   // Check the cache if we already have the results we want
   var hash = rusha.digestFromString(JSON.stringify(metadata))
   var cache = storage.get(hash)
@@ -26,6 +33,18 @@ function MusicSimilarity (servers, metadata, callback) {
     }
     callback(tracks)
   })
+}
+
+// Delete similarity information for a certain set of music files
+function removeSimilarity (metadata) {
+  var hash = rusha.digestFromString(JSON.stringify(metadata))
+  storage.remove(hash)
+}
+
+// Add similarity information for a certain set of music files
+function addSimilarity (metadata, tracks) {
+  var hash = rusha.digestFromString(JSON.stringify(metadata))
+  storage.set(hash, tracks)
 }
 
 // Build the array of possible metadata requests
