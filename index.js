@@ -4,10 +4,10 @@ var xhr = require('xhr')
 var async = require('async')
 var messaging = require('secure-client-server-messaging')
 
-module.exports = MusicSimilarity
+module.exports = musicSimilarity
 
 // Provide similarity information for music files
-function MusicSimilarity (servers, metadata, callback, similarTracks) {
+function musicSimilarity (servers, metadata, callback, similarTracks) {
   if (servers === 'add') {
     addSimilarity(metadata, similarTracks)
     return callback(similarTracks)
